@@ -1,10 +1,10 @@
 class InfraCost < Formula
   desc "Multi-cloud FinOps CLI tool for comprehensive cost analysis and infrastructure optimization"
   homepage "https://github.com/codecollab-co/infra-cost"
-  url "https://registry.npmjs.org/infra-cost/-/infra-cost-0.2.0.tgz"
-  sha256 "7caf6ba01bf961a2c1e730a122a10fb6413c33a8acc0dc120ac9535151756ee9"
+  url "https://registry.npmjs.org/infra-cost/-/infra-cost-0.2.1.tgz"
+  sha256 "be60613ecd9d8f18d2dcd4ee2a6fdeb23697a9c8a5180b8c974d457ac8705497"
   license "MIT"
-  version "0.2.0"
+  version "0.2.1"
 
   depends_on "node"
 
