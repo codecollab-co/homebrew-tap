@@ -9,7 +9,7 @@ class InfraCost < Formula
   depends_on "node"
 
   def install
-    system "npm", "install", *std_npm_args(libexec)
+    system "npm", "install", "--prefix", libexec
     bin.install_symlink Dir["#{libexec}/bin/*"]
   end
 
