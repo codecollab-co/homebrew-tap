@@ -1,0 +1,41 @@
+name: Homebrew Formula Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-formula:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Test Formula Installation
+      run: |
+        # Test that the formula can be installed
+        brew install --build-from-source ./Formula/infra-cost.rb
+
+        # Test that the binary works
+        infra-cost --version
+        infra-cost --help
+
+        # Test that it can be uninstalled cleanly
+        brew uninstall infra-cost
+
+    - name: Audit Formula
+      run: |
+        brew audit --strict ./Formula/infra-cost.rb
+
+    - name: Style Check
+      run: |
+        brew style ./Formula/infra-cost.rb

@@ -1,0 +1,45 @@
+name: Update Formula on Release
+
+on:
+  repository_dispatch:
+    types: [new-release]
+
+jobs:
+  update-formula:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Update Formula
+      run: |
+        # Get the latest release info
+        VERSION=${{ github.event.client_payload.version }}
+        TARBALL_URL=${{ github.event.client_payload.tarball_url }}
+        SHA256=${{ github.event.client_payload.sha256 }}
+
+        # Update the formula
+        sed -i "s/version \".*\"/version \"$VERSION\"/" Formula/infra-cost.rb
+        sed -i "s|url \".*\"|url \"$TARBALL_URL\"|" Formula/infra-cost.rb
+        sed -i "s/sha256 \".*\"/sha256 \"$SHA256\"/" Formula/infra-cost.rb
+
+        # Test the updated formula
+        brew install --build-from-source ./Formula/infra-cost.rb
+        infra-cost --version
+        brew uninstall infra-cost
+
+        # Audit the formula
+        brew audit --strict ./Formula/infra-cost.rb
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "codecollab.co@gmail.com"
+        git config --local user.name "CodeCollab Bot"
+        git add Formula/infra-cost.rb
+        git commit -m "chore: update infra-cost to version ${{ github.event.client_payload.version }}"
+        git push
