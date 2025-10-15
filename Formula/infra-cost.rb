@@ -9,13 +9,8 @@ class InfraCost < Formula
   depends_on "node"
 
   def install
-    system "npm", "install", *Language::Node.std_npm_install_args(libexec)
+    system "npm", "install", *std_npm_args(libexec)
     bin.install_symlink Dir["#{libexec}/bin/*"]
-
-    # Generate shell completions if available
-    if (libexec/"bin/infra-cost").exist?
-      generate_completions_from_executable("node", libexec/"bin/infra-cost", shells: [:bash, :zsh])
-    end
   end
 
   test do
