@@ -12,6 +12,43 @@ brew tap codecollab-co/tap
 
 ## Available Formulas
 
+### ops
+
+The AI coding agent built for DevOps engineers - Infrastructure generation, log analysis, and AI-powered DevOps assistance.
+
+```bash
+# Install ops
+brew install codecollab-co/tap/ops
+
+# Verify installation
+ops --version
+```
+
+#### Features
+
+- 🐳 **Infrastructure Generation**: Production-ready Dockerfiles, docker-compose, Terraform, Kubernetes manifests
+- 📊 **Log Analysis**: Natural language log queries, pattern recognition, root cause analysis
+- ☁️ **Multi-Cloud Native**: First-class support for AWS, GCP, Azure
+- 🔧 **Command Assistant**: Smart shell command suggestions with explanations
+- 🤖 **AI-Powered**: Claude AI integration for intelligent assistance
+- 💬 **Interactive Chat**: Real-time DevOps guidance and troubleshooting
+
+#### Quick Start
+
+```bash
+# Initialize in your project
+ops init
+
+# Generate a Dockerfile
+ops generate dockerfile
+
+# Analyze logs
+ops analyze logs ./app.log
+
+# Interactive AI chat
+ops chat
+```
+
 ### infra-cost
 
 Multi-cloud FinOps CLI tool for comprehensive cost analysis and infrastructure optimization across AWS, GCP, Azure, Alibaba Cloud, and Oracle Cloud.
@@ -63,15 +100,22 @@ infra-cost --trend --pdf-report report.pdf
 ### Testing
 
 ```bash
-# Test all formulas
+# Test formulas
+brew test codecollab-co/tap/ops
 brew test codecollab-co/tap/infra-cost
 
 # Audit formulas
+brew audit --strict codecollab-co/tap/ops
 brew audit --strict codecollab-co/tap/infra-cost
 ```
 
 ## Support
 
+### ops
+- 📚 [Documentation](https://github.com/codecollab-co/ops/tree/main/docs)
+- 🐛 [Issues](https://github.com/codecollab-co/ops/issues)
+
+### infra-cost
 - 📚 [Documentation](https://github.com/codecollab-co/infra-cost#readme)
 - 🐛 [Issues](https://github.com/codecollab-co/infra-cost/issues)
 - 💬 [Discussions](https://github.com/codecollab-co/infra-cost/discussions)
